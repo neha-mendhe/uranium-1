@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 // const UserModel= require("../models/userModel.js")
 const UserController= require("../controllers/userController")
@@ -37,5 +37,66 @@ router.get("/dateManipulations", function (req, res) {
 
     res.send({ msg: "all good"})
 })
+
+module.exports = router;*/
+
+
+
+
+// const express = require('express');
+// const router = express.Router();
+// const allcontroller =require("../controllers/allcontroller")
+// const bookModel =require("../models/bookModel")
+
+// router.post ("/createNewAuthor", allcontroller.createNewAuthor)
+// router.post ("/createNewBook",allcontroller.createNewBook)
+// router.get("/ allBooks",allcontroller.allBooks)
+// router.get("/updatedBookPrice",allcontroller.upadatedBookprice)
+// router.get("/authorsName",allcontroller.authorsName)
+// module.exports= router;
+/***************************************************************************************** */
+
+//const express = require('express');
+//const router = express.Router();
+//const userController = require("../controllers/userController")
+//const bookController = require("../controllers/bookController")
+//const authorBookController = require("../controllers/authorBookController")
+
+//User route handlers
+//router.post("/createUser", userController.createUser)
+//router.get("/getUsersData", userController.getUsersData)
+
+//Book route handlers
+//router.post("/createBook", bookController.createBook)
+// router.get("/getBooksData", bookController.getBooksData)
+// router.post("/bookList", bookController.bookList)
+// router.post("/getBooksInYear", bookController.getBooksInYear)
+// router.post("/getParticularBooks", bookController.getParticularBooks)
+// router.get("/getXINRBooks", bookController.getXINRBooks)
+// router.get("/getRandomBooks", bookController.getRandomBooks)
+
+//Auther & Book route handlers
+// router.post("/createAuthor", authorBookController.createAuthor)
+// router.post("/createBook2", authorBookController.createBook) //endpoint is createBook2 because createBook is already present
+// router.post("/findBooks", authorBookController.findBooks)
+// router.post("/findUpdate", authorBookController.findUpdate)
+// router.get("/findRange", authorBookController.findRange)    
+
+// module.exports = router;
+/*********************************************************************************/
+
+
+const express = require('express');
+const router = express.Router();
+
+const bookController = require("../controllers/bookController");
+//const bookModel = require("../models/bookModel");
+//const authorModel = require("../models/authorModel");
+//const publisherModel = require("../models/publisherModel");
+//Author-Publisher-Book route handlers
+router.post("/createAuthor", bookController.createAuthor)
+router.post("/createPublisher", bookController.createPublisher)
+router.post("/createBook", bookController.createBook)
+router.get("/findBook", bookController.findBook)
 
 module.exports = router;

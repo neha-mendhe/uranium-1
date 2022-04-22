@@ -4,7 +4,8 @@
   "description": "Backend cohort",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/indrx.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,8 +13,9 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mogoose": "^0.0.1-security",
     "moment": "^2.29.1",
-    "mongoose": "^6.2.3",
+    "mongoose": "^6.3.0",
     "nodemon": "^2.0.15"
   }
 }
