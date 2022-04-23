@@ -86,17 +86,33 @@ module.exports = router;*/
 /*********************************************************************************/
 
 
-const express = require('express');
-const router = express.Router();
-
-const bookController = require("../controllers/bookController");
+//const express = require('express');
+//const router = express.Router();
+//const bookController = require("../controllers/bookController");
 //const bookModel = require("../models/bookModel");
 //const authorModel = require("../models/authorModel");
 //const publisherModel = require("../models/publisherModel");
 //Author-Publisher-Book route handlers
-router.post("/createAuthor", bookController.createAuthor)
-router.post("/createPublisher", bookController.createPublisher)
-router.post("/createBook", bookController.createBook)
-router.get("/findBook", bookController.findBook)
+//router.post("/createAuthor", bookController.createAuthor)
+//router.post("/createPublisher", bookController.createPublisher)
+//router.post("/createBook", bookController.createBook)
+//router.get("/findBook", bookController.findBook)
+
+//module.exports = router;
+/***************************************************************************************/
+//18/4/2020 
+
+const express = require('express');
+const router = express.Router();
+const developerController = require("../controllers/developerController")
+
+//Developer-Batch route handlers
+router.post("/batches", developerController.createBatch)
+router.post("/developers", developerController.createDeveloper)
+router.get("/scholarship-developers", developerController.scholarship_developers)
+router.get("/developers", developerController.getDeveloper)
+router.post("/ObjectId_Checker", developerController.ObjectIdCheck)
 
 module.exports = router;
+
+
