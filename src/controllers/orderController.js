@@ -116,7 +116,7 @@ module.exports.getUsersData= getUsersData*/
 /**************************************************************************************************** */
 //19/4/22
 
-const {user,product,order} = require("../models/schemas")
+const {user,product,order} = require("../models/schema")
 const mongoose = require('mongoose');
 
 const createUser = async (req, res) => {

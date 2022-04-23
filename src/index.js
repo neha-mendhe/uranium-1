@@ -14,7 +14,15 @@ mongoose.connect("mongodb+srv://pattamu:iKHwECgQCaYNVpge@sandeepcluster.9rzkh.mo
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
-app.use('/', route);
+//app.use('/', route);
+app.use (
+    function (req, res, next) {
+        console.log ("inside GLOBAL MW");
+        const date = new Date().toLocaleString()
+    console.log(date,req.ip,req.url)
+        next();
+  }
+  );
 
 
 app.listen(process.env.PORT || 3000, function () {
