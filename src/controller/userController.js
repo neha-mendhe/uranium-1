@@ -1,6 +1,6 @@
 const UserModel = require("../models/userModel")
 const jwt=require('jsonwebtoken')
-const userModel = require("../models/userModel")
+//const userModel = require("../models/userModel")
 
 
 
@@ -110,7 +110,7 @@ const userLogin = async function(req,res){
        }
        //validation ends
 
-       const user = await userModel.findOne({email,password});
+       const user = await UserModel.findOne({email,password});
 
        if(!user){
            res.status(400).send({status:false, message:`Invalid login credentials`});

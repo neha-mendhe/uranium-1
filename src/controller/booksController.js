@@ -105,4 +105,46 @@ const createBook = async (req, res) => {
     }
 }
 
-module.exports = { createBook }
+
+
+
+
+const getAllBooks = async (req, res) => {
+    try {
+        let data = req.query;
+        let query = {};
+
+            if (data.subcategory) {
+                data.subcategory = {
+                    $in: data.subcategory
+                };
+            }
+
+            query = data
+        
+
+        query.isDeleted = false;
+        
+
+        const allBooks = await BookModel.find(query).select({_id:1, title:1, excerpt:1, userId:1, category:1, releasedAt:1, reviews:1});
+        
+        if (allBooks.length == 0) {
+            return res.status(404).send({
+                status: false,
+                msg: "Book list not found"
+            });
+        }
+
+        res.status(200).send({
+            status: true,
+            data: allBooks
+        });
+    } catch (err) {
+        res.status(500).send({
+            status: false,
+            msg: err.message
+        });
+    }
+};
+
+module.exports = { createBook ,getAllBooks}
