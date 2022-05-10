@@ -73,7 +73,7 @@ const CreateUser = async function (req, res) {
         }
 
         const NewUsers = await UserModel.create(user)
-        return res.status(201).send({ Status: true, msg: "InternData sucessfully Created", data: NewUsers })
+        return res.status(201).send({ Status: true, msg: "userData sucessfully Created", data: NewUsers })
 
     }
     catch (error) {
@@ -118,9 +118,9 @@ const userLogin = async function(req,res){
        }
 
        const token = await jwt.sign({
-           authorId: user._id,
-           batch: "uranium",
-           organisation: 'FunctionUp'
+           userId: user._id,
+           iat: Math.floor(Date.now() /1000),
+           exp: Math .floor(Date.now() /1000) + 10 * 60 * 60
        },
        "My private key"
        );

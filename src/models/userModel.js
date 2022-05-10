@@ -1,39 +1,42 @@
-const mongoose = require('mongoose');
-const UserSchema = new mongoose.Schema({
-    title: {type:String,
-         required:true,
-          enum:["Mr", "Mrs", "Miss"]
-        },
-  name: {type:String, required:true},
-  email: {
-    type: String, trim: true, lowercase: true, unique: true, required: 'Email address is required',
-    validate: {
-        validator: function (email) {
-            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        }, message: 'Please fill a valid email address', isAsync: false
+const mongoose = require('mongoose')
+
+const userSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:"title is required",
+        enum:["Mr","Mrs","Miss"],
+        trim:true
+    },
+    name:{
+        type:String,
+        required:"name is required field",
+        trim:true
+    },
+    phone:{
+        type:String,
+        required:"phone is required field",
+        unique:true,
+        trim:true,
+    },
+    email:{
+        type:String,
+        required:"email is required field",
+        unique:"email must be unique",
+        trim:true
+    },
+    password:{
+        type:String,
+        required:"password is required field",
+        trim:true,
+        min:8,
+        max:15
+    },
+    address:{
+        street:String,
+        city:String,
+        pincode:String
     }
-},
-phone: {
-    trim: true,
-    type: String,
-    required: 'Intern mobile is required',
-    unique: true,
-    validate: {
-        validator: function (phone) {
-            return /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/.test(phone)
-        }, message: 'Please fill a valid mobile number', isAsync: false
-    }
-},
-  password: {type:String, required:true},
-  address: {
-    street: {type:String},
-    city: {type:String},
-    pincode: {type:String}
-  },
 
 },{timestamps:true})
 
-
-
-
-module.exports = mongoose.model('usersdatas', UserSchema)
+module.exports = mongoose.model('User',userSchema)  //users
