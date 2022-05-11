@@ -49,7 +49,7 @@ const createBook = async (req, res) => {
         if (!data.ISBN) {
             return res.status(400).send({ status: false, message: "ISBN is required!!!" })
         }
-        let validateISBN = /^[0-9]+$/
+        let validateISBN = /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/
         if (!validateISBN.test(data.ISBN)) {
             return res.status(400).send({ status: false, message: "enter valid ISBN number" })
         }
