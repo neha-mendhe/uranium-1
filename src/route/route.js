@@ -4,12 +4,14 @@ const userController = require("../controller/userController")
 const booksController = require("../controller/booksController")
 const middleware = require("../middleware/userAuth")
 
+//User APIs
 router.post("/register",userController.CreateUser)
 router.post('/Login', userController.userLogin)
 
+//Books API
 router.post('/books',middleware.tokenValidator,booksController. createBook )
 router.get("/books",middleware.tokenValidator,booksController.getAllBooks)
-router.get("/books/:bookId",middleware.tokenValidator,booksController.getAllBooks)
+router.get("/books/:bookId",middleware.tokenValidator,booksController.getBooksById)
 router.put("/books/:bookId",middleware.tokenValidator,booksController.updateBook)
 router.delete("/books/:bookId",middleware.tokenValidator,booksController.deleteBooksById )
 
