@@ -5,7 +5,7 @@ const booksController = require("../controller/booksController")
 const middleware = require("../middleware/userAuth")
 
 //User APIs
-router.post("/register",userController.CreateUser)
+router.post("/register",userController.createUser)
 router.post('/Login', userController.userLogin)
 
 //Books API

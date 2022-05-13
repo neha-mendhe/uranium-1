@@ -8,11 +8,7 @@ const validateField = (field) => {
 
 const createBook = async (req, res) => {
     try {
-        const validateField = (field) => {
-            return String(field).trim().match(
-                /^[a-zA-Z0-9][a-zA-Z0-9\s\-,?_.]+$/);
-        };
-
+        
         const data = req.body
         const userId = req.userId
 
@@ -73,8 +69,8 @@ const createBook = async (req, res) => {
         if (!Array.isArray(data.subcategory)) {
             return res.status(400).send({ status: false, message: "SUBCATEGORY is type is invalid!!!" })
         }
-        const t = data.subcategory.filter((e) => e.trim().length != 0)
-        data.subcategory = t
+        const filterArray = data.subcategory.filter((e) => e.trim().length != 0)
+        data.subcategory = filterArray
 
         if (data.subcategory.length == 0) {
             return res.status(400).send({ status: false, message: "SUBCATEGORY cannot be empty!!!" })
@@ -83,12 +79,12 @@ const createBook = async (req, res) => {
 
 
         //reviews-------------------------------------------------------------------------------------------
-        let reviews = data.reviews
-        if (reviews) {
-            if (!(reviews >= 0 && reviews <= 5)) {
-                return res.status(400).send({ status: false, message: "rewiew rating is between 0 and 5!!!" })
-            }
-        }
+        // let reviews = data.reviews
+        // if (reviews) {
+        //     // if (!(reviews >= 0 && reviews <= 5)) {
+        //   return res.status(400).send({ status: false, message: "rewiew rating is between 0 and 5!!!" })
+        //     // }
+        // }
 
         //deletedAt-------------------------------------------------------------------------------------------
 
