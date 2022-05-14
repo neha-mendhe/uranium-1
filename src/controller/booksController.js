@@ -145,7 +145,7 @@ const getAllBooks = async (req, res) => {
     } catch (err) {
         res.status(500).send({
             status: false,
-            msg: err.message
+            message: err.message
         });
     }
 };
@@ -277,56 +277,45 @@ const updateBook = async (req,res) => {
 
 
 
-const deleteBooksById = async function (req, res) {
-    try {
-        let userId=req.userId
-        let bookId = req.params.bookId;
+const deleteBooksById = async (req, res) => {
+    try
+    {
+        let bookId  = req.params.bookId   //getting bookid from path params
+        let userId = req.userId
+        if(!bookId){
+            return res.status(400).send({status:false , message: "Please give book id"})
+        }
 
-        if (!bookId) {
-            return res.status(400).send({ status: false, message: "Book-Id is required" })
-          }
-      
-          if ((!mongoose.Types.ObjectId.isValid(bookId))) {
-            return res.status(400).send({ status: false, msg: "Invalid Book-Id" });
-          }
+        let isValidbookID = mongoose.Types.ObjectId.isValid(bookId);//check if objectId is objectid
+        if (!isValidbookID) {
+            return res.status(400).send({ status: false, message: "Book Id is Not Valid" });
+        }
 
-        let result = await BookModel.findOne({
-            _id: bookId,
-            isDeleted: false
-        });
+        const book = await BookModel.findOne({_id:bookId,isDeleted:false})//check id exist in book model
+        if (!book)
+            return res.status(404).send({ status:false,message: "BookId dont exist" })
 
         //authorization-------------------------------------------------------------------------------
-        if(result.userId!=userId){
+        if(book.userId!=userId){
             return res.status(403).send({status:false , message: "you cannot access others book data"})
         }
-        if (!result) return res.status(404).send({
-            status: false,
-            msg: "Book data not found"
-        })
+
+        //reviews of that particular book should also be deleted
         
-        let updated = await BookModel.findByIdAndUpdate({
-            _id: bookId,
-            isDeleted: false
-        }, {
-            isDeleted: true,
-            deletedAt: Date()
-        }, {
-            new: true
-        });
+        const review=await ReviewModel.updateMany({bookId:bookId,isDeleted:false} ,{ $set: {isDeleted:true}})
+        
+        book.isDeleted=true
+        book.deletedAt=new Date()
 
-        res.status(200).send({
-            status: true,
-            message: "Deletion Successfull",
-            data:updated
-        });
+        book.save()
 
-    } catch (error) {
-        res.status(500).send({
-            status: false,
-            msg: error.message
-        });
+        //matchedCount give us the count of how many documents are updated
+        return res.status(200).send({status:true, message:"deleted book", deletedbook : `${book.title} book is deleted along with ${review.matchedCount} reviews`})
+}
+    catch(err){
+        return res.status(500).send({status:false , message:err.message})  
     }
-};
+}
 
 
 

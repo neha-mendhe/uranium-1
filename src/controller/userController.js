@@ -199,13 +199,12 @@ const userLogin = async function(req,res){
        );
 
        res.header('x-api-key',token);
-       res.status(200).send({status:true, message:`User login successfully`, data:{token}});
+       res.status(200).send({status:true, message:`User login successfully`, data:token});
 
    } catch (error) {
        res.status(500).send({status:false, message:error.message});
    }
 }
 
-module.exports. createUser=createUser
+module.exports = {createUser,userLogin}
 
-module.exports.userLogin=userLogin
