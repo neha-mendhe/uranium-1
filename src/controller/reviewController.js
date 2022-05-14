@@ -74,7 +74,7 @@ const createReview = async (req, res) => {
 
 
 
-        return res.status(201).send({ status: true, message: "successfully added review", data: BookWithReview })
+        return res.status(201).send({ status: true, message: "successfully created review", data: BookWithReview })
     }
     catch (err) {
         return res.status(500).send({ status: false, message: err.message })
@@ -109,7 +109,7 @@ const updateReview = async (req, res) => {
 
         const updateReview = await ReviewModel.findOne({ _id: reviewId, bookId: bookId, isDeleted: false })//check id exist in review model
         if (!updateReview)
-            return res.status(404).send({ status: false, message: `reviewId dont exist or reviews not found for ${book.title} book` })
+            return res.status(404).send({ status: false, message: `reviewId dont exist or this reviews is not for ${book.title} book` })
 
 
         //validation of body
@@ -123,7 +123,7 @@ const updateReview = async (req, res) => {
         if (rating) {
 
             if (!(rating >= 1 && rating <= 5)) {
-                return res.status(400).send({ status: false, message: "rating must be is between 0 and 5!!!" })
+                return res.status(400).send({ status: false, message: "rating must be is between 1 and 5!!!" })
             }
 
             updateReview.rating = rating   //upation for rating
@@ -132,8 +132,8 @@ const updateReview = async (req, res) => {
         //if review is given
         let review = data.review
         if(review){
-            if(review.trim().length<0){
-                return res.status(400).send({ status: false, message: "you had enter a empty review!!" })
+            if(!validateField(review)){
+                return res.status(400).send({ status: false, message: "you had enter a invalid review!!" })
             }
             updateReview.review = review
         }
@@ -141,8 +141,8 @@ const updateReview = async (req, res) => {
         //if reviewer name is given
         let reviewerName = data.reviewedBy
         if(reviewerName){
-            if(reviewerName.trim().length==0){
-                return res.status(400).send({ status: false, message: "you had enter a empty reviewer's name!!" })
+            if(!validateField(reviewerName)){
+                return res.status(400).send({ status: false, message: "you had enter a invalid reviewer's name!!" })
             }
             updateReview.reviewedBy = reviewerName
         }
@@ -196,7 +196,7 @@ const deleteReview = async (req,res) =>{
 
         const deleteReview = await ReviewModel.findOne({ _id: reviewId, bookId: bookId, isDeleted: false })//check id exist in review model
         if (!deleteReview)
-            return res.status(404).send({ status: false, message: `reviewId dont exist or reviews not found for " ${book.title} " book` })
+            return res.status(404).send({ status: false, message: `reviewId dont exist or this reviews is not for " ${book.title} " book` })
 
         //deletion of review
         deleteReview.isDeleted=true
