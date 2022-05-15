@@ -14,6 +14,8 @@ const isValid = function (value) {
 const isValidRequestBody = function (requestBody) {
     return Object.keys(requestBody).length > 0
 }
+
+
 const createUser = async (req, res) => {
     try {
         //name validation name can only contain [a-z],[A-Z]and space

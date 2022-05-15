@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controller/userController")
 const booksController = require("../controller/booksController")
 const middleware = require("../middleware/userAuth")
+const reviewController = require("../controller/reviewController")
 
 //User APIs
 router.post("/register",userController.createUser)
@@ -15,6 +16,10 @@ router.get("/books/:bookId",middleware.tokenValidator,booksController.getBooksBy
 router.put("/books/:bookId",middleware.tokenValidator,booksController.updateBook)
 router.delete("/books/:bookId",middleware.tokenValidator,booksController.deleteBooksById )
 
+//review API
+router.post("/books/:bookId/review",reviewController.createReview )
+router.put("/books/:bookId/review/:reviewId",reviewController.updateReview )
+router.delete("/books/:bookId/review/:reviewId",reviewController.deleteReview )
 
 // if api is invalid OR wrong URL
 router.all("/**", function (req, res) {
