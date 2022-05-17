@@ -78,16 +78,6 @@ const createBook = async (req, res) => {
         }
 
 
-        //reviews-------------------------------------------------------------------------------------------
-        // let reviews = data.reviews
-        // if (reviews) {
-        //     // if (!(reviews >= 0 && reviews <= 5)) {
-        //   return res.status(400).send({ status: false, message: "rewiew rating is between 0 and 5!!!" })
-        //     // }
-        // }
-
-        //deletedAt-------------------------------------------------------------------------------------------
-
 
         //releasedAt-----------------------------------------------------------------------------------------
         if (!data.releasedAt) {

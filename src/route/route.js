@@ -3,22 +3,21 @@ const router = express.Router();
 const userController = require("../controller/userController")
 const booksController = require("../controller/booksController")
 const reviewController = require("../controller/reviewController")
-
 const middleware = require("../middleware/userAuth")
-const reviewController = require("../controller/reviewController")
 
-//User APIs
+
+//UserModel APIs
 router.post("/register",userController.createUser)
 router.post('/Login', userController.userLogin)
 
-//Books API
+//BooksModel API
 router.post('/books',middleware.tokenValidator,booksController. createBook )
 router.get("/books",booksController.getAllBooks)
 router.get("/books/:bookId",booksController.getBooksById)
 router.put("/books/:bookId",middleware.tokenValidator,booksController.updateBook)
-router.delete("/books/:bookId",middleware.tokenValidator,booksController.deleteBooksBy)
+router.delete("/books/:bookId",middleware.tokenValidator,booksController.deleteBooksById)
 
-//review API
+//reviewModel API
 router.post("/books/:bookId/review",reviewController.createReview )
 router.put("/books/:bookId/review/:reviewId",reviewController.updateReview )
 router.delete("/books/:bookId/review/:reviewId",reviewController.deleteReview )
@@ -30,5 +29,4 @@ router.all("/**", function (req, res) {
         msg: "The api you request is not available"
     })
 })
-
 module.exports=router;
