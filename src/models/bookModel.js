@@ -7,6 +7,10 @@ const bookSchema = new mongoose.Schema({
         unique:"title must be unique",
         trim:true
     },
+    bookCover:{
+        type:String,
+        required:true
+    },
     excerpt:{
         type:String,
         required:"excerpt is required",

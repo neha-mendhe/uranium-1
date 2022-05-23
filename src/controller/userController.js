@@ -1,6 +1,6 @@
 const UserModel = require("../models/userModel")
 const jwt=require('jsonwebtoken')
-
+//const userModel = require("../models/userModel")
 
 
 
@@ -14,8 +14,6 @@ const isValid = function (value) {
 const isValidRequestBody = function (requestBody) {
     return Object.keys(requestBody).length > 0
 }
-
-
 const createUser = async (req, res) => {
     try {
         //name validation name can only contain [a-z],[A-Z]and space
@@ -33,7 +31,15 @@ const createUser = async (req, res) => {
                 );
         };
 
-      
+        // password validation function must contain capital,number and special symbol
+        // const validatePassword = (password) => {
+        //     return String(password).trim()
+        //         .match(
+        //             /^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\$%\^&\*])(?=.{8,})/
+        //         );
+        // };
+
+        //MOBILE NUMBER VALIDATION must be number start with 6,7,8,9 and of 10 digit 
         const validateNumber = (number) => {
             return String(number).trim().match(
                 ///^(\+\d{1,3}[- ]?)?\d{10}$/
@@ -112,6 +118,11 @@ const createUser = async (req, res) => {
        
 
         //address---------------------------------------------------------------------------------------------------
+        if(typeof data.address !== 'object' || Array.isArray(data.address) || Object.keys(data.address).length==0){
+            
+            return res.status(400).send({status:false , message: "address should be of type object and if address is given it should not be empty"})
+        }
+
         let street = data.address.street
         let city = data.address.city
         let pincode = data.address.pincode
@@ -201,4 +212,3 @@ const userLogin = async function(req,res){
 }
 
 module.exports = {createUser,userLogin}
-
